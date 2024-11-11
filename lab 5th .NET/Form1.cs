@@ -28,8 +28,10 @@ namespace TextFileProcessor
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
-
+            // 
             // menuStrip2
+            // 
+            this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newFileToolStripMenuItem,
             this.openFileToolStripMenuItem,
@@ -42,56 +44,69 @@ namespace TextFileProcessor
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(800, 30);
             this.menuStrip2.TabIndex = 0;
-
+            // 
             // newFileToolStripMenuItem
+            // 
             this.newFileToolStripMenuItem.Name = "newFileToolStripMenuItem";
-            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(65, 26);
+            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.newFileToolStripMenuItem.Text = "New";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
-
+            // 
             // openFileToolStripMenuItem
+            // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             this.openFileToolStripMenuItem.Text = "Open";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
-
+            // 
             // saveFileToolStripMenuItem
+            // 
             this.saveFileToolStripMenuItem.Name = "saveFileToolStripMenuItem";
-            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(66, 26);
+            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
             this.saveFileToolStripMenuItem.Text = "Save";
             this.saveFileToolStripMenuItem.Click += new System.EventHandler(this.saveFileToolStripMenuItem_Click);
-
+            // 
             // saveAsToolStripMenuItem
+            // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(84, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-
+            // 
             // processFileToolStripMenuItem
+            // 
             this.processFileToolStripMenuItem.Name = "processFileToolStripMenuItem";
-            this.processFileToolStripMenuItem.Size = new System.Drawing.Size(84, 26);
+            this.processFileToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
             this.processFileToolStripMenuItem.Text = "Process";
             this.processFileToolStripMenuItem.Click += new System.EventHandler(this.processFileToolStripMenuItem_Click);
-
+            // 
             // clearToolStripMenuItem
+            // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(69, 26);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
-
+            // 
             // exitToolStripMenuItem
+            // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(59, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-
+            // 
             // richTextBox1
             this.richTextBox1.Location = new System.Drawing.Point(0, 30);
+            this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(800, 420);
-            this.Controls.Add(this.richTextBox1);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.ScrollBars = RichTextBoxScrollBars.Vertical; // добавляем вертикальную полосу прокрутки
 
+            // 
             // Form1
+            // 
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip2);
             this.MainMenuStrip = this.menuStrip2;
             this.Name = "Form1";
@@ -100,6 +115,7 @@ namespace TextFileProcessor
             this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
