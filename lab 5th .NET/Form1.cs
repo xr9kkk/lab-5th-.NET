@@ -172,10 +172,30 @@ namespace TextFileProcessor
 
         private void processFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Получаем текущее содержимое RichTextBox
             var lines = richTextBox1.Lines;
+
+            // Обрабатываем файл
             var processedLines = string.Join(" ", lines.Where(line => !string.IsNullOrWhiteSpace(line)));
+
+            // Создаем диалоговое окно для выбора имени файла
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            saveFileDialog.Title = "Choose a file to save the processed content";
+
+            // Предварительное сохранение результата
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = saveFileDialog.FileName;
+                File.WriteAllText(fileName, processedLines);
+                MessageBox.Show($"Processed content saved to {fileName}", "Success");
+            }
+
+            // Устанавливаем результат обработки в RichTextBox
             richTextBox1.Text = processedLines;
         }
+
+
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
