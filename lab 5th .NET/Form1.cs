@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,6 +27,7 @@ namespace TextFileProcessor
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +44,7 @@ namespace TextFileProcessor
             this.exitToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(800, 30);
+            this.menuStrip2.Size = new System.Drawing.Size(1106, 28);
             this.menuStrip2.TabIndex = 0;
             // 
             // newFileToolStripMenuItem
@@ -95,17 +97,27 @@ namespace TextFileProcessor
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // richTextBox1
+            // 
             this.richTextBox1.Location = new System.Drawing.Point(0, 30);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(800, 420);
+            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox1.Size = new System.Drawing.Size(547, 420);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
-            this.richTextBox1.ScrollBars = RichTextBoxScrollBars.Vertical; // добавляем вертикальную полосу прокрутки
-
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(553, 30);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(553, 420);
+            this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox2.TabIndex = 1;
+            this.richTextBox2.Text = "";
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1106, 450);
+            this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip2);
             this.MainMenuStrip = this.menuStrip2;
@@ -143,7 +155,7 @@ namespace TextFileProcessor
                 openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    currentFilePath = openFileDialog.FileName;  // Update current file path
+                    currentFilePath = openFileDialog.FileName; 
                     richTextBox1.Text = File.ReadAllText(currentFilePath);
                 }
             }
@@ -153,12 +165,10 @@ namespace TextFileProcessor
         {
             if (string.IsNullOrEmpty(currentFilePath))
             {
-                // If no file path, prompt user with Save As dialog
                 SaveAs();
             }
             else
             {
-                // Save to the existing file
                 File.WriteAllText(currentFilePath, richTextBox1.Text);
                 MessageBox.Show("File saved successfully!", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -166,7 +176,6 @@ namespace TextFileProcessor
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Call SaveAs method to prompt user for file name
             SaveAs();
         }
 
@@ -189,28 +198,39 @@ namespace TextFileProcessor
 
         private void processFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Получаем текущее содержимое RichTextBox
             var lines = richTextBox1.Lines;
+            var result = "";
 
-            // Обрабатываем файл
-            var processedLines = string.Join(" ", lines.Where(line => !string.IsNullOrWhiteSpace(line)));
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    result += '\n';
+                }
+                else
+                {
+                    result += line.Trim() + " ";
+                }
+            }
 
-            // Создаем диалоговое окно для выбора имени файла
+            result = result.TrimEnd() + '\n';
+
+
+            richTextBox2.Text = result;
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             saveFileDialog.Title = "Choose a file to save the processed content";
 
-            // Предварительное сохранение результата
+            // Сохраняем результат в файл
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string fileName = saveFileDialog.FileName;
-                File.WriteAllText(fileName, processedLines);
+                File.WriteAllText(fileName, result);
                 MessageBox.Show($"Processed content saved to {fileName}", "Success");
             }
-
-            // Устанавливаем результат обработки в RichTextBox
-            richTextBox1.Text = processedLines;
         }
+
 
 
 

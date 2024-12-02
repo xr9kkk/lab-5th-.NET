@@ -11,6 +11,7 @@ namespace TextFileProcessor
         private System.Windows.Forms.ToolStripMenuItem processFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox richTextBox2;
     }
 
 }
